@@ -1,0 +1,31 @@
+.userImgContainer{
+    justify-content: center;
+    margin: 20px 0px;
+}
+
+
+
+
+.userImg{
+    height: 200px;
+    width: 200px;
+    background-color: #bbb;
+    border-radius: 50%;
+   
+}
+
+.iconBtn{
+    margin: 0px 20px;
+    cursor: pointer;
+    font-size: large;
+    
+}
+
+.iconBtn:hover{
+    color: #626262;
+}
+
+.iconsContainer{
+    margin: 20px;
+    justify-content: center;
+}
