@@ -1,17 +1,29 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/agendaHomePage.css";
 
+
+
 export const AgendaHomePage = () => {
 
     const { store, actions } = useContext(Context);
+   
 
     return (
         <div>
-            <ul>
+            <nav className="navbar navbar-light bg-light mb-3">
 
-                
+                <span className="navbar-brand mb-0 h1"></span>
+
+                <div className="ml-auto">
+                    <Link to="/agenda_form">
+                        <button className="btn btn-success">Add new contact</button>
+                    </Link>
+                </div>
+            </nav>
+
+            <ul>
                 {store.agenda.map((ele, key) =>
 
                     <li className="border row">
@@ -20,61 +32,61 @@ export const AgendaHomePage = () => {
                             <img src="https://picsum.photos/300/300" alt="User Image" className="userImg"  >
                             </img> </div>
 
-                        <div className="col-md-8 col-sm-6 col-lg-7 ">
+                        <div className="col-md-8 col-sm-6 col-lg-7 infoContainer">
+                        <div className="infoContainer">
                             <h3>{ele.full_name}</h3>
                             <div className="fw-semibold text-secondary fs-5"><i class="fa-solid fa-location-dot me-2"></i>{ele.address}</div>
-                            <div className=" text-secondary"><i class="fa-solid fa-phone me-2"></i>{ele.phone}</div>
+                            <div className=" text-secondary"><i class="fa-solid fa-phone me-2"></i>{`(${ele.phone.slice(0,3)}) ${ele.phone.slice(3,6)}-${ele.phone.slice(6)}`}</div>
                             <div className="text-secondary"><i class="fa-solid fa-envelope me-2"></i>{ele.email}</div>
 
-                            
-                            
+                        </div>
                         </div>
 
                         <div className=" col-lg-1 col-md-3 col-sm-6 d-flex iconsContainer " >
                             <i className="fa-solid fa-pencil iconBtn " data-bs-toggle="modal" data-bs-target={`#editUser${key}`} ></i>
-                            <i className="fa-solid fa-trash-can iconBtn " data-bs-toggle="modal" data-bs-target={`#deleteUser${key}`} ></i>
-                            
+                            <i className="fa-solid fa-trash-can iconBtn " data-bs-toggle="modal" data-bs-target={`#deleteUser${key}`}  ></i>
+
                         </div>
 
-                 <div className="modal fade" id={`editUser${key}`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div className="modal fade" id={`editUser${key}`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div className="modal-dialog">
                                 <div className="modal-content">
                                     <div className="modal-header">
                                         <h1 className="modal-title fs-5" id="staticBackdropLabel">Edit your user!</h1>
-                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => location.reload(true)}></button>
                                     </div>
                                     <div className="modal-body">
                                         <form>
                                             <div className="mb-3">
-                                                <label  className="form-label">Full Name</label>
-                                                <input type="text" placeholder="Full name" className="form-control" defaultValue={ele.full_name} onChange={(event, value) => actions.setName(event.target.value)} required/>
+                                                <label className="form-label">Full Name</label>
+                                                <input type="text" placeholder="Full name" className="form-control" defaultValue={ele.full_name} onChange={(event) => actions.setName(event.target.value)} required />
 
                                             </div>
                                             <div className="mb-3">
                                                 <label className="form-label">Email</label>
-                                                <input type="email" placeholder="Enter email" className="form-control" defaultValue={ele.email} onChange={(event) => actions.setEmail(event.target.value)} required/>
+                                                <input type="email" placeholder="Enter email" className="form-control" defaultValue={ele.email} onChange={(event) => actions.setEmail(event.target.value)} required />
                                             </div>
 
                                             <div className="mb-3">
-                                                <label  className="form-label">Phone</label>
-                                                <input placeholder="Enter phone" className="form-control" defaultValue={ele.phone} onChange={(event) => actions.setPhone(event.target.value)} required/>
+                                                <label className="form-label">Phone</label>
+                                                <input placeholder="Enter phone" className="form-control" defaultValue={ele.phone} onChange={(event) => actions.setPhone(event.target.value)} required />
                                             </div>
 
                                             <div className="mb-3">
-                                                <label  className="form-label">Address</label>
-                                                <input type="text" placeholder="Enter address" className="form-control" defaultValue={ele.address} onChange={(event) => actions.setAddress(event.target.value)} required/>
+                                                <label className="form-label">Address</label>
+                                                <input type="text" placeholder="Enter address" className="form-control" defaultValue={ele.address} onChange={(event) => actions.setAddress(event.target.value)} required />
                                             </div>
 
                                             <div className="d-flex">
-                                                <button type="button" className="btn btn-secondary w-50 " data-bs-dismiss="modal">No</button>
+                                                <button type="button" className="btn btn-secondary w-50 " data-bs-dismiss="modal" onClick={() => location.reload(true)} >No</button>
                                                 <button onClick={() => actions.editUser(ele, key)} className="btn btn-primary w-50" >save</button>
-                                                
+
                                             </div>
-                                           
+
                                         </form>
 
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -101,7 +113,7 @@ export const AgendaHomePage = () => {
 
                     </li>)}
 
-                
+
 
 
             </ul>
