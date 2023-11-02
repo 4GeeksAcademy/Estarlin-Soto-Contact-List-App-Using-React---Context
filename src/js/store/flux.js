@@ -25,6 +25,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				addressInput: "",
 				phoneInput: ""
 			}
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -46,10 +47,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
-			setName : async (name) => {
+			setName : async (name, va) => {
 				const store = getStore()
 				store.inputs.nameInput = name
 				await setStore({ name: store.inputs.nameInput })
+				console.log(store.inputs)
 			},
 
 			setEmail: async (email) => {
@@ -69,8 +71,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			setPhone: (phone) => {
 				const store = getStore()
 				store.inputs.phoneInput = phone
-				setStore({ phone: store.inputs.addressInput })
-				console.log(store.agenda)
+				setStore({ phone: store.inputs.phoneInput })
+				console.log(store.inputs)
 
 			},
 
@@ -105,23 +107,75 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("send form ERROR ===", e)
 				}
 			},
+			
 			deleteUser : async (i) =>{
-				
 				try{
 					let id = i
-					console.log(id)
-					//await fetch(`https://playground.4geeks.com/apis/fake/contact/${id}`, {method: "DELETE",})
-					
-					//location.reload()
+					await fetch(`https://playground.4geeks.com/apis/fake/contact/${id}`, {method: "DELETE",})
+					location.reload()
 					
 				}catch(e){
 					console.log("Delete User Fucntion ERROR===", e)
 				}
 			},
 
-			editUser: async (id) =>{
-				console.log("editando..." ,id)
+			editUser: async (ele, key) =>{
+				
+				try{
+
+				const store = getStore()
+
+				let data = {		
+					email: store.inputs.emailInput,
+					agenda_slug: "estarlin_agenda",
+					address: store.inputs.addressInput,
+					phone: store.inputs.phoneInput,
+					full_name: store.inputs.nameInput
+				}
+
+				if( ele.email.length == 0){
+					let email = store.agenda[key].email
+					data.email = email
+					console.log(store.agenda[key].email)
+				}
+
+				if( ele.phone.length == 0){
+					let phone = store.agenda[key].phone
+					data.phone= phone
+					
+				}
+
+				if( ele.full_name.length == 0){
+					let name = store.agenda[key].full_name
+					data.full_name = name
+					
+				}
+
+				if( ele.address.length == 0){
+					let address = store.agenda[key].address
+					data.address = address
+					
+				}
+				let id = ele.id
+
+		
+
+				await fetch(`https://playground.4geeks.com/apis/fake/contact/${id}`,
+				{method : "PUT", 
+				 headers : {'Content-type': 'application/json'
+				},
+				body : JSON.stringify(data)
+				});
+
+				
+				
+				}
+				catch(e){
+					console.log("editUser Function Error ===", e)
+				}
+				
 			}
+			
 
 
 
