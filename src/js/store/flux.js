@@ -51,7 +51,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(store.inputs)
 			},
 
-
 			setAddress: async (address) => {
 				const store = getStore()
 				store.inputs.addressInput = address
@@ -65,7 +64,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(store.inputs)
 
 			},
-
+			//declaro una funcion para luego declarar un objeto en el que asigno los valores de las repectivas propiedades de mi objeto inputs
+			//luego verifico  que el objeto no este vacio para luego hacer el POST request
 			sendform: async () => {
 				const store = getStore()
 				try {
@@ -91,13 +91,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 					}
+					else{alert("LLena todos los campos para poder seguir")}
 				}
 				catch (e) {
 					console.log("send form ERROR ===", e)
-					alert("LLena todos los campos para poder seguir")
+					
 				}
 			},
-
+			//declaro mi funcion para borrar un usuario en particular
 			deleteUser: async (i) => {
 				try {
 					let id = i
@@ -108,7 +109,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Delete User Fucntion ERROR===", e)
 				}
 			},
-
+			//con esta funcion recivo 2 parametros 1: el elemento seleccionado 2: el indice del mismo
+			//lleno el objeto y luego verifico de que los inputs que no fueron modificados por el usuario terminen con la misma informacion que ya tenian
 			editUser: async (ele, key) => {
 
 				try {
@@ -162,20 +164,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			}
 
-			/*,
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}*/
+			
 		}
 	};
 };

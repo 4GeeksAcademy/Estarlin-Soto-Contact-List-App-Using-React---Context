@@ -8,7 +8,7 @@ export const Agenda_form = () => {
     const { store, actions } = useContext(Context);
 
     return (
-        <div className="m-5 ">
+        <div className="m-5 p-5">
             <form action="/agendaHomePage " className="shadow-sm p-3">
                 <div className="mb-3 text-center">
                     <label for="exampleInputEmail1" className="form-label"><b>Full Name</b></label>
