@@ -21,7 +21,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
-			//hago un mi GET request para luego llenar mi array que lleva el nombre de agenda
+			//hago un GET request para luego llenar mi array que lleva el nombre de agenda
 			getAgenda: async () => {
 				try {
 					const store = getStore()
